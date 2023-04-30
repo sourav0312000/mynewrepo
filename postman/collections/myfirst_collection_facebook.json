@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "4e458d69-dbae-4ad0-a0ad-0b67ac7287f4",
+		"name": "myfirst_collection_facebook",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "21245264-4e458d69-dbae-4ad0-a0ad-0b67ac7287f4"
+	},
+	"item": [
+		{
+			"name": "https://graph.facebook.com/236825478999381?fields=id,name,email,picture&access_token=EAANpUZCqjKi0BAOA4GTPs2QTbZCK5whZCyOJR93c4IXJw93jiI6sZBH0Jzbma5Jg9bc80WlOZCS6ffYpvIZBPDCI1W5coDTIH22jsoTKFO0928y9RAZAUhykkx8kZCfBS09j7Uyu1ZAZAgZBwj5gEiDfpy4RxxZAZBlaQUS3e",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "302dad05-a49c-43f3-99f5-e12958f5ab48",
+						"exec": [
+							"pm.test(\"status code verification\",()=>{\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"var jsondata=pm.response.json();\r",
+							"pm.test(\"name verification\",()=>{\r",
+							"    pm.expect(jsondata.name).to.eql(\"Sourav Vashisth\");\r",
+							"});\r",
+							"pm.test(\"post verification\",()=>{\r",
+							"    pm.expect(jsondata.posts.data[0].message).to.eql(\"this is my first post .\");\r",
+							"});\r",
+							"pm.test(\"total friends verification\",()=>{\r",
+							"    pm.expect(jsondata.friends.summary.total_count).to.eql(32);\r",
+							"});\r",
+							"pm.test(\"user id verification\",()=>{\r",
+							"    pm.expect(jsondata.id).to.eql(\"236825478999381\");\r",
+							"});\r",
+							"pm.test(\"email verification\",()=>{\r",
+							"    pm.expect(jsondata.email).to.eql(\"souravdaku0312000@gmail.com\");\r",
+							"});\r",
+							"const urlval=JSON.parse(responseBody);\r",
+							"pm.globals.set(\"urlforprofile\",urlval.picture.data.url);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "b1195a16-edba-4256-9402-7ca794043a57",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://graph.facebook.com/236825478999381?fields=id,email,name,birthday,friends,posts,picture&access_token={{token}}",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"236825478999381"
+					],
+					"query": [
+						{
+							"key": "fields",
+							"value": "id,email,name,birthday,friends,posts,picture"
+						},
+						{
+							"key": "access_token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://graph.facebook.com/236825478999381/feed?message=hello friends ! this post is posted just for testing purpose&access_token=EAANpUZCqjKi0BAJ2cFl06uEG0UB4tcfdtSYi57PonkoMzBgZBGXtouYfE9oY1RiaGzayzKadNTq4xnIztYJc317g3m6lU9dkSGwJ3AXxXoonIX1VUd4Qcz2LOapA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ab372f08-c4b9-4381-a362-d12d57c1637a",
+						"exec": [
+							"pm.test(\"status code verification\",()=>{\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "17dcb2ec-5c60-4468-a7ab-138369e585bd",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://graph.facebook.com/762959895204712/feed?message=hello friends ! this post is posted just for testing purpose only 3&access_token={{token}}",
+					"protocol": "https",
+					"host": [
+						"graph",
+						"facebook",
+						"com"
+					],
+					"path": [
+						"762959895204712",
+						"feed"
+					],
+					"query": [
+						{
+							"key": "message",
+							"value": "hello friends ! this post is posted just for testing purpose only 3"
+						},
+						{
+							"key": "access_token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "url_for_profile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "20504adc-417c-4083-b19b-46825ae78535",
+						"exec": [
+							"pm.test(\"status code verification\",()=>{\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "9686040a-4bda-40ca-acf9-d0261f202c99",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlforprofile}}",
+					"host": [
+						"{{urlforprofile}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
